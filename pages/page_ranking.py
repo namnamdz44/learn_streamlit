@@ -59,11 +59,13 @@ def btn_reset(id):
         st.rerun()
         
 def btn_submit(id):
-    st.download_button(
-        label="Submit",
-        file_name=os.path.join(s ,"Data","output.csv"),
-        mime='text/csv',
-    )
+    with open(os.path.join(s ,"Data","output.csv"),"rb") as f:
+        st.download_button(
+            label="Submit",
+            data = f ,
+            file_name=os.path.join(s ,"Data","output.csv"),
+            mime='text/csv',
+        )
     st.toast('Dữ liệu đã được ghi lại') 
     # if st.button("Submit", key=f"submit_{id}"):
     #     output_data = read_output_file(os.path.join(s ,"Data","output.csv"))
