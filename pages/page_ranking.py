@@ -4,6 +4,7 @@ import numpy as np
 import json
 import os
 import random
+import subprocess
 import time
 from utils import *
 
@@ -43,6 +44,9 @@ def btn_finish(id):
                     st.session_state[i] = 0
             with open(os.path.join(s ,"temp.json"), "w") as f:
                 json.dump(dict(st.session_state), f, ensure_ascii=False)
+            subprocess.run("git add .", shell=True)
+            subprocess.run("git commit -m 'update'", shell=True)
+            subprocess.run("git push", shell=True)
             st.switch_page("page_question.py")
         
 def btn_reset(id):
