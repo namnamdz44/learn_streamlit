@@ -32,19 +32,25 @@ def btn_reset(id):
         st.rerun()
         
 def btn_submit(id):
-    if st.button("Submit", key=f"submit_{id}"):
-        output_data = read_output_file(os.path.join(s ,"Data","output.csv"))
-        if not output_data.empty:
-            indexes = [int(i.split("_")[0]) for i in output_data["id"].to_list()]
-            input_data = pd.read_csv(os.path.join(s ,"Data","input.csv"))
-            input_data = update_input_file(input_data, indexes, os.path.join(s ,"Data","input.csv"))     
-            update_input_data(input_data, INPUT_RANGE_NAME)
-            update_output_data(output_data, OUTPUT_RANGE_NAME)
-            os.remove(os.path.join(s ,"Data","output.csv"))  
-            os.remove(os.path.join(s ,"Data","input.csv"))  
-            os.remove(os.path.join(s ,"Data","user.csv"))  
-        st.toast('Dữ liệu đã được ghi lại')    
-        time.sleep(1)
+    st.download_button(
+        label="Submit",
+        file_name=os.path.join(s ,"Data","output.csv"),
+        mime='text/csv',
+    )
+    st.toast('Dữ liệu đã được ghi lại') 
+    # if st.button("Submit", key=f"submit_{id}"):
+    #     output_data = read_output_file(os.path.join(s ,"Data","output.csv"))
+    #     if not output_data.empty:
+    #         indexes = [int(i.split("_")[0]) for i in output_data["id"].to_list()]
+    #         input_data = pd.read_csv(os.path.join(s ,"Data","input.csv"))
+    #         input_data = update_input_file(input_data, indexes, os.path.join(s ,"Data","input.csv"))     
+    #         update_input_data(input_data, INPUT_RANGE_NAME)
+    #         update_output_data(output_data, OUTPUT_RANGE_NAME)
+    #         os.remove(os.path.join(s ,"Data","output.csv"))  
+    #         os.remove(os.path.join(s ,"Data","input.csv"))  
+    #         os.remove(os.path.join(s ,"Data","user.csv"))  
+    #     st.toast('Dữ liệu đã được ghi lại')    
+    #     time.sleep(1)
 
 def read_output_file(path):
     if os.path.exists(path):

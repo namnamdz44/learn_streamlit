@@ -44,9 +44,6 @@ def btn_finish(id):
                     st.session_state[i] = 0
             with open(os.path.join(s ,"temp.json"), "w") as f:
                 json.dump(dict(st.session_state), f, ensure_ascii=False)
-            subprocess.run("git add .", shell=True)
-            subprocess.run("git commit -m 'update'", shell=True)
-            subprocess.run("git push", shell=True)
             st.switch_page("page_question.py")
         
 def btn_reset(id):
@@ -62,19 +59,25 @@ def btn_reset(id):
         st.rerun()
         
 def btn_submit(id):
-    if st.button("Submit", key=f"submit_{id}"):
-        output_data = read_output_file(os.path.join(s ,"Data","output.csv"))
-        if not output_data.empty:
-            indexes = [int(i.split("_")[0]) for i in output_data["id"].to_list()]
-            input_data = pd.read_csv(os.path.join(s ,"Data","input.csv"))
-            input_data = update_input_file(input_data, indexes, os.path.join(s ,"Data","input.csv"))     
-            update_input_data(input_data, INPUT_RANGE_NAME)
-            update_output_data(output_data, OUTPUT_RANGE_NAME)
-            os.remove(os.path.join(s ,"Data","output.csv"))  
-            os.remove(os.path.join(s ,"Data","input.csv"))  
-            os.remove(os.path.join(s ,"Data","user.csv"))  
-        st.toast('Dữ liệu đã được ghi lại')    
-        time.sleep(1)
+    st.download_button(
+        label="Submit",
+        file_name=os.path.join(s ,"Data","output.csv"),
+        mime='text/csv',
+    )
+    st.toast('Dữ liệu đã được ghi lại') 
+    # if st.button("Submit", key=f"submit_{id}"):
+    #     output_data = read_output_file(os.path.join(s ,"Data","output.csv"))
+    #     if not output_data.empty:
+    #         indexes = [int(i.split("_")[0]) for i in output_data["id"].to_list()]
+    #         input_data = pd.read_csv(os.path.join(s ,"Data","input.csv"))
+    #         input_data = update_input_file(input_data, indexes, os.path.join(s ,"Data","input.csv"))     
+    #         update_input_data(input_data, INPUT_RANGE_NAME)
+    #         update_output_data(output_data, OUTPUT_RANGE_NAME)
+    #         os.remove(os.path.join(s ,"Data","output.csv"))  
+    #         os.remove(os.path.join(s ,"Data","input.csv"))  
+    #         os.remove(os.path.join(s ,"Data","user.csv"))  
+    #     st.toast('Dữ liệu đã được ghi lại')    
+    #     time.sleep(1)
         # st.rerun()
 
 def read_output_file(path):
