@@ -41,7 +41,7 @@ def btn_submit(id):
                 mime='text/csv',
             )
     else:
-        if st.button("Submit", key=f"finish_{id}"):
+        if st.button("Submit", key=f"submit_{id}"):
             st.toast('Chưa có dữ liệu để tải về') 
     # if st.button("Submit", key=f"submit_{id}"):
     #     output_data = read_output_file(os.path.join(s ,"Data","output.csv"))
