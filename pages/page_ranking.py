@@ -130,7 +130,7 @@ if __name__ == "__main__":
     
     # Biến cờ để theo dõi trạng thái cảnh báo
     has_warning = False
-    max_occurrences = 2
+    max_occurrences = 5
     col1, col2, col3 = st.columns([6,6,4])
     with col1: 
         with open(guilding_md, "r", encoding="utf-8") as file:
